@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Home from './pages/Home';
+import Blogs from './pages/Blogs';
+import { Route, Routes, Link } from 'react-router-dom';
+import BlogPost from './components/BlogPost';
+import { blogPosts } from './utils/SampleBlogs';
+import AllBlogs from "./components/AllBlogs";
+import SubmitBlog from "./pages/SubmitBlog";
+import { useState } from "react";
 
-function App() {
+
+const App = () => {
+  const [allBlogs, setAllBlogs] = useState(blogPosts);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/blogs" element={<Blogs />} >
+          <Route index element={<AllBlogs allBlogs={allBlogs} />} />
+          <Route path="single-blog/:blogId" element={<BlogPost allBlogs={allBlogs} />} />
+        </Route>
+        <Route path="/submit-blog" element={<SubmitBlog allBlogs={allBlogs} setAllBlogs={setAllBlogs} />} />
+      </Routes>
+    </div >
   );
 }
 
