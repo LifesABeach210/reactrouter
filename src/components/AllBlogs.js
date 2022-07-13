@@ -62,3 +62,4 @@ const AllBlogs = ({ allBlogs }) => {
     </>
   );
 };
+export default AllBlogs;
